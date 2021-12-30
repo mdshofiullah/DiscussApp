@@ -88,6 +88,7 @@ def room(request, pk):
     room = Room.objects.get(id=pk)
 
     room_messages = room.message_set.all().order_by('-created')
+    participants = room.participants.all()
     # for i in rooms:
     #     if i['id'] == int(pk):
     #         room = i
@@ -99,7 +100,8 @@ def room(request, pk):
         )
         return redirect('room', pk=room.id)
 
-    context = {'room': room, 'room_messages': room_messages}
+    context = {'room': room, 'room_messages': room_messages,
+               'participants': participants}
     return render(request, 'base/room.html', context)
 
 
