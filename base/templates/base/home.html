@@ -10,22 +10,7 @@
 <!-- <h1>Hello World!!!!!!!(it's from templates)</h1> -->
 
 <div class="home-container">
-	<div>
-		<h3>Browse Topics</h3>
-		<hr />
-
-		<div>
-			<a href="{% url 'home' %}">All</a>
-		</div>
-
-		{% for topic in topics %}
-
-		<div>
-			<a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-		</div>
-
-		{% endfor %}
-	</div>
+	<div>{% include 'base/topics_components.html' %}</div>
 
 	<div>
 		<h5>{{room_count}} rooms available</h5>
@@ -49,21 +34,7 @@
 		{% endfor %}
 	</div>
 
-	<div>
-		<h3>Recent Activity</h3>
-		<hr />
-		{% for message in room_messages %}
-		<div>
-			<small>@{{message.user}} {{message.created|timesince}}</small>
-			<small>replied to "{{message.room}}"</small>
-			<p>{{message}}</p>
-			{% if request.user == message.user %}
-			<a href="{% url 'delete-message' message.id %}">Delete</a>
-			{% endif %}
-			<hr />
-		</div>
-		{% endfor %}
-	</div>
+	<div>{% include 'base/activity_components.html' %}</div>
 </div>
 
 {% endblock %}
